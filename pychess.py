@@ -2,7 +2,8 @@ import pygame
 
 pygame.init()
 
-tela = pygame.display.set_mode([630, 630])
+TAM_TELA = 635
+tela = pygame.display.set_mode([TAM_TELA, TAM_TELA])
 cor_quadrados_1_hex = "#70a2a3"
 cor_quadrados_1 = tuple(int(cor_quadrados_1_hex[i:i+2], 16) for i in (1, 3, 5))
 
@@ -33,9 +34,7 @@ turno = 0
 selecao = 10000
 movimentos_validos = []
 
-tam = 60
-
-
+tam = 65
 # Adicionando a imagem das pecas brancas
 torre_brancas = pygame.transform.scale(pygame.image.load('pecas/torre_brancas.png'), (tam, tam))
 cavalo_brancas = pygame.transform.scale(pygame.image.load('pecas/cavalo_brancas.png'), (tam, tam))
@@ -72,7 +71,17 @@ def tabuleiro_draw(tela, cores):
     for linha in range(8):
         for coluna in range(8):
             cor = cores[(linha + coluna) % 2]
+            #Tabuleiro
             pygame.draw.rect(tela, cor, [coluna * tam_quadrado, linha * tam_quadrado, tam_quadrado, tam_quadrado])
+            #Bordas
+
+            pygame.draw.rect(tela, 'black', [coluna * tam_quadrado, linha * tam_quadrado, 2, tam_quadrado])
+            pygame.draw.rect(tela, 'black', [coluna * tam_quadrado, linha * tam_quadrado, tam_quadrado, 2])
+
+            pygame.draw.rect(tela, 'black', [633, 0 , 0, TAM_TELA], 2)
+            pygame.draw.rect(tela, 'black', [0, 0 , 635, TAM_TELA], 2)
+
+            
    
 
 rodando = True
@@ -85,6 +94,22 @@ while rodando:
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
             rodando = False
+        if evento.type == pygame.MOUSEBUTTONDOWN and evento.button == 1:
+            x_coord = evento.pos[0] // 100
+            y_coord = evento.pos[1] // 100
+            click_coords = (x_coord, y_coord)
+            if turno <= 1:
+                if click_coords in brancas_coord:
+                    selecao = brancas_coord.index(click_coords)
+                    if turno == 0:
+                        turno = 1
+
+                if click_coords in movimentos_validos and selecao != 100:
+                    brancas_coord[selecao] = click_coords
+                    if click_coords in pretas_coord:
+                        peca_preta = pretas_coord.index(click_coords)
+                        pretas.pop(peca_preta)
+                        pretas_coord.pop(peca_preta)
 
     pygame.display.flip()
 pygame.quit()
