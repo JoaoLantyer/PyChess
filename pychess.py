@@ -4,7 +4,7 @@ pygame.init()
 
 # TELA
 LARG = 1480
-ALT= 640
+ALT= 740
 tela = pygame.display.set_mode([LARG, ALT])
 
 # CORES DO TABULEIRO
@@ -18,6 +18,9 @@ cor_quadrados_2 = tuple(int(cor_quadrados_2_hex[i:i+2], 16) for i in (1, 3, 5))
 relogio = pygame.time.Clock()
 fps = 60
 frame = 0
+
+# FONTE
+fonte = pygame.font.Font('fonte/Roboto-Bold.ttf', 40)
 
 pygame.display.set_caption('PyChess')
 
@@ -110,6 +113,9 @@ def tabuleiros_draw(tela, cores):
             pygame.draw.rect(tela, 'black', [coluna * tam_quadrado, linha * tam_quadrado, 2, tam_quadrado])
             pygame.draw.rect(tela, 'black', [coluna * tam_quadrado, linha * tam_quadrado, tam_quadrado, 2])
             pygame.draw.rect(tela, 'black', [0, 0 , 642, 642], 2)
+            pygame.draw.rect(tela, 'black', [0, 642, 642, 98], 2)
+            pygame.draw.rect(tela, 'white', [2, 642, 638, 96])
+            
 
     # Jogador 2
     for linha in range(8):
@@ -121,7 +127,14 @@ def tabuleiros_draw(tela, cores):
             #Bordas do Tabuleiro
             pygame.draw.rect(tela, 'black', [coluna * tam_quadrado + 840, linha * tam_quadrado, 2, tam_quadrado])
             pygame.draw.rect(tela, 'black', [coluna * tam_quadrado + 840, linha * tam_quadrado, tam_quadrado, 2])
+            pygame.draw.rect(tela, 'black', [840, 0, 640, 642], 2)
+            pygame.draw.rect(tela, 'black', [840, 640, 640, 100])
 
+def texto_draw():
+    if turno < 2:
+        tela.blit(fonte.render("SUA VEZ", True, 'black'), (20, 670))
+    else:
+        tela.blit(fonte.render("SUA VEZ", True, 'white'), (860, 670))
             
 def checar_opcoes(pecas, locs, turno):
     lista_movimentos = []
@@ -402,6 +415,7 @@ while rodando:
     tabuleiros_draw(tela, (cor_quadrados_1, cor_quadrados_2))
     pecas_draw_um()
     pecas_draw_dois()
+    texto_draw()
     xeque_draw()
     if selecao != 10000:
         movimentos_validos = checar_movimentos_validos()
