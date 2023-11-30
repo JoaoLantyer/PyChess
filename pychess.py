@@ -2,6 +2,7 @@ import pygame
 
 pygame.init()
 
+# TELA
 LARG = 1480
 ALT= 640
 tela = pygame.display.set_mode([LARG, ALT])
@@ -13,19 +14,12 @@ cor_quadrados_1 = tuple(int(cor_quadrados_1_hex[i:i+2], 16) for i in (1, 3, 5))
 cor_quadrados_2_hex = "#b1e4b9"
 cor_quadrados_2 = tuple(int(cor_quadrados_2_hex[i:i+2], 16) for i in (1, 3, 5))
 
-
-fonte = pygame.font.Font('freesansbold.ttf', 20)
+# TEMPO
 relogio = pygame.time.Clock()
 fps = 60
 frame = 0
 
 pygame.display.set_caption('PyChess')
-
-pretas = ['torre', 'cavalo', 'bispo', 'rainha', 'rei', 'bispo', 'cavalo', 'torre',
-                'peao', 'peao', 'peao', 'peao', 'peao', 'peao', 'peao', 'peao']
-
-pretas_coord = [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0),
-                   (0, 1), (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1)]
 
 brancas = ['torre', 'cavalo', 'bispo', 'rainha', 'rei', 'bispo', 'cavalo', 'torre',
                 'peao', 'peao', 'peao', 'peao', 'peao', 'peao', 'peao', 'peao']
@@ -33,18 +27,18 @@ brancas = ['torre', 'cavalo', 'bispo', 'rainha', 'rei', 'bispo', 'cavalo', 'torr
 brancas_coord = [(0, 7), (1, 7), (2, 7), (3, 7), (4, 7), (5, 7), (6, 7), (7, 7),
                    (0, 6), (1, 6), (2, 6), (3, 6), (4, 6), (5, 6), (6, 6), (7, 6)]
 
+
+pretas = ['torre', 'cavalo', 'bispo', 'rainha', 'rei', 'bispo', 'cavalo', 'torre',
+                'peao', 'peao', 'peao', 'peao', 'peao', 'peao', 'peao', 'peao']
+
+pretas_coord = [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0),
+                   (0, 1), (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1)]
+
 turno = 0
 selecao = 10000
 movimentos_validos = []
 
 tam = 65
-# Adicionando a imagem das pecas pretas
-torre_pretas = pygame.transform.scale(pygame.image.load('pecas/torre_pretas.png'), (tam, tam))
-cavalo_pretas = pygame.transform.scale(pygame.image.load('pecas/cavalo_pretas.png'), (tam, tam))
-bispo_pretas = pygame.transform.scale(pygame.image.load('pecas/bispo_pretas.png'), (tam, tam))
-rainha_pretas = pygame.transform.scale(pygame.image.load('pecas/rainha_pretas.png'), (tam, tam))
-rei_pretas = pygame.transform.scale(pygame.image.load('pecas/rei_pretas.png'), (tam, tam))
-peao_pretas = pygame.transform.scale(pygame.image.load('pecas/peao_pretas.png'), (tam, tam))
 
 # Adicionando a imagem das pecas brancas
 torre_brancas = pygame.transform.scale(pygame.image.load('pecas/torre_brancas.png'), (tam, tam))
@@ -54,11 +48,16 @@ rainha_brancas = pygame.transform.scale(pygame.image.load('pecas/rainha_brancas.
 rei_brancas = pygame.transform.scale(pygame.image.load('pecas/rei_brancas.png'), (tam, tam))
 peao_brancas = pygame.transform.scale(pygame.image.load('pecas/peao_brancas.png'), (tam, tam))
 
+# Adicionando a imagem das pecas pretas
+torre_pretas = pygame.transform.scale(pygame.image.load('pecas/torre_pretas.png'), (tam, tam))
+cavalo_pretas = pygame.transform.scale(pygame.image.load('pecas/cavalo_pretas.png'), (tam, tam))
+bispo_pretas = pygame.transform.scale(pygame.image.load('pecas/bispo_pretas.png'), (tam, tam))
+rainha_pretas = pygame.transform.scale(pygame.image.load('pecas/rainha_pretas.png'), (tam, tam))
+rei_pretas = pygame.transform.scale(pygame.image.load('pecas/rei_pretas.png'), (tam, tam))
+peao_pretas = pygame.transform.scale(pygame.image.load('pecas/peao_pretas.png'), (tam, tam))
 
-imagens_pretas = [torre_pretas, cavalo_pretas, bispo_pretas, rainha_pretas, rei_pretas, peao_pretas]
 imagens_brancas = [torre_brancas, cavalo_brancas, bispo_brancas, rainha_brancas, rei_brancas, peao_brancas]
-
-
+imagens_pretas = [torre_pretas, cavalo_pretas, bispo_pretas, rainha_pretas, rei_pretas, peao_pretas]
 
 pecas = ['torre', 'cavalo', 'bispo', 'rainha', 'rei', 'peao']
 
@@ -110,11 +109,7 @@ def tabuleiros_draw(tela, cores):
             #Bordas do Tabuleiro
             pygame.draw.rect(tela, 'black', [coluna * tam_quadrado, linha * tam_quadrado, 2, tam_quadrado])
             pygame.draw.rect(tela, 'black', [coluna * tam_quadrado, linha * tam_quadrado, tam_quadrado, 2])
-
-
-            #Bordas da Tela
-            # pygame.draw.rect(tela, 'black', [0, 0 , 742, 742], 2)
-            # pygame.draw.rect(tela, 'black', [0, 0 , 742, 642], 2)
+            pygame.draw.rect(tela, 'black', [0, 0 , 642, 642], 2)
 
     # Jogador 2
     for linha in range(8):
@@ -126,8 +121,6 @@ def tabuleiros_draw(tela, cores):
             #Bordas do Tabuleiro
             pygame.draw.rect(tela, 'black', [coluna * tam_quadrado + 840, linha * tam_quadrado, 2, tam_quadrado])
             pygame.draw.rect(tela, 'black', [coluna * tam_quadrado + 840, linha * tam_quadrado, tam_quadrado, 2])
-
-            pygame.draw.rect(tela, 'black', [0, 0 , 642, 642], 2)
 
             
 def checar_opcoes(pecas, locs, turno):
@@ -154,24 +147,7 @@ def checar_opcoes(pecas, locs, turno):
 
 def checar_peao(posicao, cor):
     lista_movimentos = []
-    if cor == 'preta':
-        # Mover pra frente 1 casa
-        if (posicao[0], posicao[1] + 1) not in pretas_coord and \
-           (posicao[0], posicao[1] + 1) not in brancas_coord and posicao[1] < 7:
-            lista_movimentos.append((posicao[0], posicao[1] + 1))
-
-            # Mover pra frente 2 casas, caso esteja na posicao inicial
-            if (posicao[0], posicao[1] + 2) not in pretas_coord and \
-            (posicao[0], posicao[1] + 2) not in brancas_coord and posicao[1] == 1:
-                lista_movimentos.append((posicao[0], posicao[1] + 2))
-
-        # Comer uma peca, indo na diagonal
-        if (posicao[0] + 1, posicao[1] + 1) in brancas_coord:
-            lista_movimentos.append((posicao[0] + 1, posicao[1] + 1))
-        if (posicao[0] - 1, posicao[1] + 1) in brancas_coord:
-            lista_movimentos.append((posicao[0] - 1, posicao[1] + 1))
-
-    else:
+    if cor == 'branca':
         # Mover pra frente 1 casa
         if (posicao[0], posicao[1] - 1) not in pretas_coord and \
            (posicao[0], posicao[1] - 1) not in brancas_coord and posicao[1] > 0:
@@ -188,21 +164,38 @@ def checar_peao(posicao, cor):
         if (posicao[0] - 1, posicao[1] - 1) in pretas_coord:
             lista_movimentos.append((posicao[0] - 1, posicao[1] - 1))
 
+    else:
+        # Mover pra frente 1 casa
+        if (posicao[0], posicao[1] + 1) not in pretas_coord and \
+           (posicao[0], posicao[1] + 1) not in brancas_coord and posicao[1] < 7:
+            lista_movimentos.append((posicao[0], posicao[1] + 1))
+
+            # Mover pra frente 2 casas, caso esteja na posicao inicial
+            if (posicao[0], posicao[1] + 2) not in pretas_coord and \
+            (posicao[0], posicao[1] + 2) not in brancas_coord and posicao[1] == 1:
+                lista_movimentos.append((posicao[0], posicao[1] + 2))
+
+        # Comer uma peca, indo na diagonal
+        if (posicao[0] + 1, posicao[1] + 1) in brancas_coord:
+            lista_movimentos.append((posicao[0] + 1, posicao[1] + 1))
+        if (posicao[0] - 1, posicao[1] + 1) in brancas_coord:
+            lista_movimentos.append((posicao[0] - 1, posicao[1] + 1))
+
     return lista_movimentos
 
 
 def checar_torre(posicao, cor):
     lista_movimentos = []
-    if cor == 'preta':
-        #Torres pretas
-
-        lista_aliados = pretas_coord
-        lista_inimigos = brancas_coord
-    else:
+    if cor == 'branca':
          # Torres brancas
 
         lista_aliados = brancas_coord
         lista_inimigos = pretas_coord
+    else:
+        #Torres pretas
+
+        lista_aliados = pretas_coord
+        lista_inimigos = brancas_coord
 
     for i in range(4): # as 4 direcoes
         caminho = True
@@ -243,12 +236,13 @@ def checar_torre(posicao, cor):
 def checar_cavalo(posicao, cor):
     lista_movimentos = []
     
-    if cor == 'preta':
-        #Cavalos pretos
-        lista_aliados = pretas_coord
-    else:
+    if cor == 'branca':
          # Cavalos brancos
         lista_aliados = brancas_coord
+    else:
+        #Cavalos pretos
+        lista_aliados = pretas_coord
+
 
     alvos = [(1, 2), (2, 1), (2, -1), (1, -2), (-1, 2), (-2, 1), (-2, -1), (-1, -2)]
     for i in range(8):
@@ -263,16 +257,16 @@ def checar_cavalo(posicao, cor):
 def checar_bispo(posicao, cor):
     lista_movimentos = []
 
-    if cor == 'preta':
-        # Bispos pretos
-
-        lista_aliados = pretas_coord
-        lista_inimigos = brancas_coord
-    else:
+    if cor == 'branca':
          # Bispos brancos
 
         lista_aliados = brancas_coord
         lista_inimigos = pretas_coord
+    else:
+        # Bispos pretos
+
+        lista_aliados = pretas_coord
+        lista_inimigos = brancas_coord
 
     for i in range(4): # as 4 diagonais
         caminho = True
@@ -327,33 +321,16 @@ def checar_rainha(posicao, cor):
 
     return lista_movimentos
 
-def xeque_draw():
-
-    if turno < 2:
-        if 'rei' in pretas:
-            rei_index = pretas.index('rei')
-            rei_loc = pretas_coord[rei_index]
-            for i in range(len(opcoes_brancas)):
-                if rei_loc in opcoes_brancas[i]:
-                    pygame.draw.rect(tela, 'dark red', [pretas_coord[rei_index][0] * 80 + 1, pretas_coord[rei_index][1] * 80 + 1, 80, 80], 5)
-    else:
-        if 'rei' in brancas:
-            rei_index = brancas.index('rei')
-            rei_loc = brancas_coord[rei_index]
-            for i in range(len(opcoes_pretas)):
-                if rei_loc in opcoes_pretas[i]:
-                    pygame.draw.rect(tela, 'dark red', [brancas_coord[rei_index][0] * 80 + 1, brancas_coord[rei_index][1] * 80 + 1, 80, 80], 5)
-
 def checar_rei(posicao, cor):
     lista_movimentos = []
-    if cor == 'preta':
-        #Torres pretas
-
-        lista_aliados = pretas_coord
-    else:
+    if cor == 'branca':
          # Torres brancas
 
         lista_aliados = brancas_coord
+    else:
+        #Torres pretas
+
+        lista_aliados = pretas_coord
 
     alvos = [(1, 0), (1, 1), (1, -1), (0, 1), (0, -1), (-1, 1), (-1, 0), (-1, -1)]
     for i in range(8):
@@ -362,6 +339,36 @@ def checar_rei(posicao, cor):
             lista_movimentos.append(alvo)
 
     return lista_movimentos
+
+def xeque_draw():
+    if turno < 2:
+        if 'rei' in brancas:
+            rei_index = brancas.index('rei')
+            rei_loc = brancas_coord[rei_index]
+            for i in range(len(opcoes_pretas)):
+                if rei_loc in opcoes_pretas[i]:
+                    if frame < 30:
+                        pygame.draw.rect(tela, 'dark red', [rei_loc[0] * 80 + 1, rei_loc[1] * 80 + 1, 80, 80], 5)
+
+                        espelhado_x = 7 - rei_loc[0]
+                        espelhado_y = 7 - rei_loc[1]
+
+                        pygame.draw.rect(tela, 'dark red', [espelhado_x * 80 + 1 + 840, espelhado_y * 80 + 1, 80, 80], 5)
+
+    else:
+        if 'rei' in pretas:
+            rei_index = pretas.index('rei')
+            rei_loc = pretas_coord[rei_index]
+            for i in range(len(opcoes_brancas)):
+                if rei_loc in opcoes_brancas[i]:
+                    if frame < 30:
+                        pygame.draw.rect(tela, 'dark red', [rei_loc[0] * 80 + 1, rei_loc[1] * 80 + 1, 80, 80], 5)
+
+                        espelhado_x = 7 - rei_loc[0]
+                        espelhado_y = 7 - rei_loc[1]
+
+                        pygame.draw.rect(tela, 'dark red', [espelhado_x * 80 + 1 + 840, espelhado_y * 80 + 1, 80, 80], 5)
+
 
 def checar_movimentos_validos():
     if turno < 2:
@@ -387,6 +394,10 @@ opcoes_pretas = checar_opcoes(pretas, pretas_coord, 'preta')
 rodando = True
 while rodando:
     relogio.tick(fps)
+    if frame < 60:
+        frame += 1
+    else:
+        frame = 0
     tela.fill(cor_quadrados_1)
     tabuleiros_draw(tela, (cor_quadrados_1, cor_quadrados_2))
     pecas_draw_um()
