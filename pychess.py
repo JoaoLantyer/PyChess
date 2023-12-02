@@ -19,8 +19,14 @@ relogio = pygame.time.Clock()
 fps = 60
 frame = 0
 
-# FONTE
+# FIM DO JOGO
+vencedor = ''
+fim_de_jogo = False
+
+# FONTES
 fonte = pygame.font.Font('fonte/Roboto-Bold.ttf', 40)
+fonte_fim = pygame.font.Font('fonte/Roboto-Bold.ttf', 80)
+fonte_fim_2 = pygame.font.Font('fonte/Roboto-Bold.ttf', 30)
 
 pygame.display.set_caption('PyChess')
 
@@ -401,6 +407,13 @@ def validos_draw(movimentos):
         pygame.draw.circle(tela, 'red', (x_espelhado * 80 + 40 + 840, y_espelhado * 80 + 40), 10)
 
 
+def banner_fim_draw():
+    if vencedor != '':
+        pygame.draw.rect(tela, 'black', [0, 270, 1480, 200])
+        pygame.draw.rect(tela, 'white', [0, 270, 1480, 200], 4)
+        tela.blit(fonte_fim.render(f'{vencedor} VENCEU!', True, 'white'), (410, 300))
+        tela.blit(fonte_fim_2.render('Aperte ENTER para jogar novamente', True, 'white'), (500, 400))
+
 # Loop do jogo
 opcoes_brancas = checar_opcoes(brancas, brancas_coord, 'branca')
 opcoes_pretas = checar_opcoes(pretas, pretas_coord, 'preta')
@@ -426,7 +439,7 @@ while rodando:
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
             rodando = False
-        if evento.type == pygame.MOUSEBUTTONDOWN and evento.button == 1:
+        if evento.type == pygame.MOUSEBUTTONDOWN and evento.button == 1 and not fim_de_jogo:
             x_coord = evento.pos[0] // 80
             y_coord = evento.pos[1] // 80
 
@@ -447,6 +460,8 @@ while rodando:
                     brancas_coord[selecao] = click_coords
                     if click_coords in pretas_coord:
                         peca_preta = pretas_coord.index(click_coords)
+                        if pretas[peca_preta] == 'rei':
+                            vencedor = 'BRANCO'
                         pretas.pop(peca_preta)
                         pretas_coord.pop(peca_preta)
                     opcoes_pretas = checar_opcoes(pretas, pretas_coord, 'preta')
@@ -465,6 +480,8 @@ while rodando:
                     pretas_coord[selecao] = click_coords
                     if click_coords in brancas_coord:
                         peca_branca = brancas_coord.index(click_coords)
+                        if brancas[peca_branca] == 'rei':
+                            vencedor = 'PRETO'
                         brancas.pop(peca_branca)
                         brancas_coord.pop(peca_branca)
                     opcoes_pretas = checar_opcoes(pretas, pretas_coord, 'preta')
@@ -472,7 +489,33 @@ while rodando:
                     turno = 0
                     selecao = 10000
                     movimentos_validos = []           
+        if evento.type == pygame.KEYDOWN and fim_de_jogo:
+            if evento.key == pygame.K_RETURN:
+                fim_de_jogo = False
+                vencedor = ''
+                brancas = ['torre', 'cavalo', 'bispo', 'rainha', 'rei', 'bispo', 'cavalo', 'torre',
+                                'peao', 'peao', 'peao', 'peao', 'peao', 'peao', 'peao', 'peao']
 
+                brancas_coord = [(0, 7), (1, 7), (2, 7), (3, 7), (4, 7), (5, 7), (6, 7), (7, 7),
+                                (0, 6), (1, 6), (2, 6), (3, 6), (4, 6), (5, 6), (6, 6), (7, 6)]
+
+
+                pretas = ['torre', 'cavalo', 'bispo', 'rainha', 'rei', 'bispo', 'cavalo', 'torre',
+                                'peao', 'peao', 'peao', 'peao', 'peao', 'peao', 'peao', 'peao']
+
+                pretas_coord = [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0),
+                                (0, 1), (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1)]
+
+                turno = 0
+                selecao = 10000
+                movimentos_validos = []
+
+                opcoes_brancas = checar_opcoes(brancas, brancas_coord, 'branca')
+                opcoes_pretas = checar_opcoes(pretas, pretas_coord, 'preta')
+
+    if vencedor != '':
+        fim_de_jogo = True
+        banner_fim_draw()
 
     pygame.display.flip()
 pygame.quit()
