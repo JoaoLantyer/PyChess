@@ -2,7 +2,7 @@
 
 ## Objetivo do Jogo
 
-PyChess é um jogo de xadrez interativo desenvolvido em Python utilizando a biblioteca Pygame. O objetivo é simular uma partida de xadrez tradicional, onde dois jogadores se enfrentam em um tabuleiro virtual, movendo peças com o objetivo de dar xeque-mate no rei adversário.
+PyChess é um jogo de xadrez interativo desenvolvido em Python utilizando a biblioteca Pygame. O objetivo é simular uma partida de xadrez tradicional, onde dois jogadores se enfrentam em um tabuleiro virtual, movendo peças com o objetivo de capturar o rei adversário.
 
 ---
 
@@ -31,6 +31,8 @@ Para jogar o PyChess no seu computador, siga os passos abaixo:
    ```
 
 6. **Jogue**: Após iniciar o jogo, utilize o mouse para selecionar e mover as peças no tabuleiro.
+
+![Captura de Tela do Jogo](screenshot/screenshot.png)
 
 ---
 
