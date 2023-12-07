@@ -43,30 +43,53 @@ pretas = ['torre', 'cavalo', 'bispo', 'rainha', 'rei', 'bispo', 'cavalo', 'torre
 pretas_coord = [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0),
                    (0, 1), (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1)]
 
+brancas_capturadas = []
+pretas_capturadas = []
+
 turno = 0
 selecao = 10000
 movimentos_validos = []
 
-tam = 65
+tam_normal = 65
+tam_pequeno = 35
 
-# Adicionando a imagem das pecas brancas
-torre_brancas = pygame.transform.scale(pygame.image.load('pecas/torre_brancas.png'), (tam, tam))
-cavalo_brancas = pygame.transform.scale(pygame.image.load('pecas/cavalo_brancas.png'), (tam, tam))
-bispo_brancas = pygame.transform.scale(pygame.image.load('pecas/bispo_brancas.png'), (tam, tam))
-rainha_brancas = pygame.transform.scale(pygame.image.load('pecas/rainha_brancas.png'), (tam, tam))
-rei_brancas = pygame.transform.scale(pygame.image.load('pecas/rei_brancas.png'), (tam, tam))
-peao_brancas = pygame.transform.scale(pygame.image.load('pecas/peao_brancas.png'), (tam, tam))
+# Adicionando a imagem das pecas brancas no tamanho normal (Tabuleiro)
+torre_brancas = pygame.transform.scale(pygame.image.load('pecas/torre_brancas.png'), (tam_normal, tam_normal))
+cavalo_brancas = pygame.transform.scale(pygame.image.load('pecas/cavalo_brancas.png'), (tam_normal, tam_normal))
+bispo_brancas = pygame.transform.scale(pygame.image.load('pecas/bispo_brancas.png'), (tam_normal, tam_normal))
+rainha_brancas = pygame.transform.scale(pygame.image.load('pecas/rainha_brancas.png'), (tam_normal, tam_normal))
+rei_brancas = pygame.transform.scale(pygame.image.load('pecas/rei_brancas.png'), (tam_normal, tam_normal))
+peao_brancas = pygame.transform.scale(pygame.image.load('pecas/peao_brancas.png'), (tam_normal, tam_normal))
+
+# Adicionando a imagem das pecas brancas no tamanho pequeno (capturadas)
+torre_brancas_peq = pygame.transform.scale(pygame.image.load('pecas/torre_brancas.png'), (tam_pequeno, tam_pequeno))
+cavalo_brancas_peq = pygame.transform.scale(pygame.image.load('pecas/cavalo_brancas.png'), (tam_pequeno, tam_pequeno))
+bispo_brancas_peq = pygame.transform.scale(pygame.image.load('pecas/bispo_brancas.png'), (tam_pequeno, tam_pequeno))
+rainha_brancas_peq = pygame.transform.scale(pygame.image.load('pecas/rainha_brancas.png'), (tam_pequeno, tam_pequeno))
+rei_brancas_peq = pygame.transform.scale(pygame.image.load('pecas/rei_brancas.png'), (tam_pequeno, tam_pequeno))
+peao_brancas_peq = pygame.transform.scale(pygame.image.load('pecas/peao_brancas.png'), (tam_pequeno, tam_pequeno))
 
 # Adicionando a imagem das pecas pretas
-torre_pretas = pygame.transform.scale(pygame.image.load('pecas/torre_pretas.png'), (tam, tam))
-cavalo_pretas = pygame.transform.scale(pygame.image.load('pecas/cavalo_pretas.png'), (tam, tam))
-bispo_pretas = pygame.transform.scale(pygame.image.load('pecas/bispo_pretas.png'), (tam, tam))
-rainha_pretas = pygame.transform.scale(pygame.image.load('pecas/rainha_pretas.png'), (tam, tam))
-rei_pretas = pygame.transform.scale(pygame.image.load('pecas/rei_pretas.png'), (tam, tam))
-peao_pretas = pygame.transform.scale(pygame.image.load('pecas/peao_pretas.png'), (tam, tam))
+torre_pretas = pygame.transform.scale(pygame.image.load('pecas/torre_pretas.png'), (tam_normal, tam_normal))
+cavalo_pretas = pygame.transform.scale(pygame.image.load('pecas/cavalo_pretas.png'), (tam_normal, tam_normal))
+bispo_pretas = pygame.transform.scale(pygame.image.load('pecas/bispo_pretas.png'), (tam_normal, tam_normal))
+rainha_pretas = pygame.transform.scale(pygame.image.load('pecas/rainha_pretas.png'), (tam_normal, tam_normal))
+rei_pretas = pygame.transform.scale(pygame.image.load('pecas/rei_pretas.png'), (tam_normal, tam_normal))
+peao_pretas = pygame.transform.scale(pygame.image.load('pecas/peao_pretas.png'), (tam_normal, tam_normal))
+
+# Adicionando a imagem das pecas pretas no tamanho pequeno (capturadas)
+torre_pretas_peq = pygame.transform.scale(pygame.image.load('pecas/torre_pretas.png'), (tam_pequeno, tam_pequeno))
+cavalo_pretas_peq = pygame.transform.scale(pygame.image.load('pecas/cavalo_pretas.png'), (tam_pequeno, tam_pequeno))
+bispo_pretas_peq = pygame.transform.scale(pygame.image.load('pecas/bispo_pretas.png'), (tam_pequeno, tam_pequeno))
+rainha_pretas_peq = pygame.transform.scale(pygame.image.load('pecas/rainha_pretas.png'), (tam_pequeno, tam_pequeno))
+rei_pretas_peq = pygame.transform.scale(pygame.image.load('pecas/rei_pretas.png'), (tam_pequeno, tam_pequeno))
+peao_pretas_peq = pygame.transform.scale(pygame.image.load('pecas/peao_pretas.png'), (tam_pequeno, tam_pequeno))
 
 imagens_brancas = [torre_brancas, cavalo_brancas, bispo_brancas, rainha_brancas, rei_brancas, peao_brancas]
+imagens_brancas_peq = [torre_brancas_peq, cavalo_brancas_peq, bispo_brancas_peq, rainha_brancas_peq, rei_brancas_peq, peao_brancas_peq]
+
 imagens_pretas = [torre_pretas, cavalo_pretas, bispo_pretas, rainha_pretas, rei_pretas, peao_pretas]
+imagens_pretas_peq = [torre_pretas_peq, cavalo_pretas_peq, bispo_pretas_peq, rainha_pretas_peq, rei_pretas_peq, peao_pretas_peq]
 
 pecas = ['torre', 'cavalo', 'bispo', 'rainha', 'rei', 'peao']
 
@@ -119,6 +142,8 @@ def tabuleiros_draw(tela, cores):
             pygame.draw.rect(tela, 'black', [coluna * tam_quadrado, linha * tam_quadrado, 2, tam_quadrado])
             pygame.draw.rect(tela, 'black', [coluna * tam_quadrado, linha * tam_quadrado, tam_quadrado, 2])
             pygame.draw.rect(tela, 'black', [0, 0 , 642, 642], 2)
+
+            #Retângulo inferior
             pygame.draw.rect(tela, 'black', [0, 642, 642, 98], 2)
             pygame.draw.rect(tela, 'white', [2, 642, 638, 96])
             
@@ -133,6 +158,8 @@ def tabuleiros_draw(tela, cores):
             #Bordas do Tabuleiro
             pygame.draw.rect(tela, 'black', [coluna * tam_quadrado + 840, linha * tam_quadrado, 2, tam_quadrado])
             pygame.draw.rect(tela, 'black', [coluna * tam_quadrado + 840, linha * tam_quadrado, tam_quadrado, 2])
+
+            #Retângulo inferior
             pygame.draw.rect(tela, 'black', [840, 0, 640, 642], 2)
             pygame.draw.rect(tela, 'black', [840, 640, 640, 100])
 
@@ -141,6 +168,23 @@ def texto_draw():
         tela.blit(fonte.render("SUA VEZ", True, 'black'), (20, 670))
     else:
         tela.blit(fonte.render("SUA VEZ", True, 'white'), (860, 670))
+
+def capturadas_draw():
+    for i in range(len(pretas_capturadas)):
+        peca_capturada = pretas_capturadas[i]
+        index = pecas.index(peca_capturada)
+        if i < 8:
+            tela.blit(imagens_pretas_peq[index], (230 + 50 * i, 650))
+        else:
+            tela.blit(imagens_pretas_peq[index], (-170 + 50 * i, 690))
+
+    for i in range(len(brancas_capturadas)):
+        peca_capturada = brancas_capturadas[i]
+        index = pecas.index(peca_capturada)
+        if i < 8:
+            tela.blit(imagens_brancas_peq[index], (1070 + 50 * i, 650))
+        else:
+            tela.blit(imagens_brancas_peq[index], (670 + 50 * i, 690))
             
 def checar_opcoes(pecas, locs, turno):
     lista_movimentos = []
@@ -429,6 +473,7 @@ while rodando:
     pecas_draw_um()
     pecas_draw_dois()
     texto_draw()
+    capturadas_draw()
     xeque_draw()
     if selecao != 10000:
         movimentos_validos = checar_movimentos_validos()
@@ -460,6 +505,7 @@ while rodando:
                     brancas_coord[selecao] = click_coords
                     if click_coords in pretas_coord:
                         peca_preta = pretas_coord.index(click_coords)
+                        pretas_capturadas.append(pretas[peca_preta])
                         if pretas[peca_preta] == 'rei':
                             vencedor = 'BRANCO'
                         pretas.pop(peca_preta)
@@ -480,6 +526,7 @@ while rodando:
                     pretas_coord[selecao] = click_coords
                     if click_coords in brancas_coord:
                         peca_branca = brancas_coord.index(click_coords)
+                        brancas_capturadas.append(brancas[peca_branca])
                         if brancas[peca_branca] == 'rei':
                             vencedor = 'PRETO'
                         brancas.pop(peca_branca)
@@ -505,6 +552,9 @@ while rodando:
 
                 pretas_coord = [(0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0), (6, 0), (7, 0),
                                 (0, 1), (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1)]
+
+                brancas_capturadas = []
+                pretas_capturadas = []
 
                 turno = 0
                 selecao = 10000
