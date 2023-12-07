@@ -387,11 +387,11 @@ def checar_rainha(posicao, cor):
 def checar_rei(posicao, cor):
     lista_movimentos = []
     if cor == 'branca':
-         # Torres brancas
+         # Reis brancos
 
         lista_aliados = brancas_coord
     else:
-        #Torres pretas
+        # Reis pretos
 
         lista_aliados = pretas_coord
 
